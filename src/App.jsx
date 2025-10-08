@@ -33,7 +33,7 @@ function App() {
   }
 
   return (
-    <Router basename="/InvoiXe">
+    <Router>
       <Routes>
         {/* Public Routes */}
         <Route path="/verify/:id" element={<VerifyReceipt />} />
