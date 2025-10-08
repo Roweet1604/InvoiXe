@@ -33,10 +33,11 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/InvoiXe">
       <Routes>
         {/* Public Routes */}
-        <Route path="/verify/:id?" element={<VerifyReceipt />} />
+        <Route path="/verify/:id" element={<VerifyReceipt />} />
+        <Route path="/verify" element={<VerifyReceipt />} />
         
         {/* Authentication Routes */}
         <Route 
@@ -55,8 +56,8 @@ function App() {
           path="/" 
           element={user ? <Navigate to="/create-receipt" /> : <Navigate to="/login" />} 
         />
-        
-        {/* Catch all */}
+
+        {/* Catch all - keep this as the last route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

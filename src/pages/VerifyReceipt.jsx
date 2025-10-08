@@ -50,6 +50,7 @@ const VerifyReceipt = () => {
   };
 
   // Format price with currency
+  // (No code needed here, can be removed or left as a comment)
   const formatPrice = (amount, currencyCode) => {
     const symbol = getCurrencySymbol(currencyCode);
     return `${symbol}${amount.toFixed(2)}`;
@@ -67,9 +68,12 @@ const VerifyReceipt = () => {
         where('id', '==', targetId)
       );
       const receiptSnapshot = await getDocs(receiptsQuery);
-      
+
       if (receiptSnapshot.empty) {
-        setError('Receipt not found');
+        setError('404: Receipt not found. Please check the link or QR code. The receipt ID does not exist in our database.');
+        setReceipt(null);
+        setVerificationStatus(null);
+        setLoading(false);
         return;
       }
 
