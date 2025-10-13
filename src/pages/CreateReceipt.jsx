@@ -72,7 +72,7 @@ const CreateReceipt = () => {
   // Get currency symbol for display
   const getCurrencySymbol = () => {
     const selectedCurrency = currencies.find(c => c.code === currency);
-    return selectedCurrency ? selectedCurrency.symbol : '$';
+    return selectedCurrency ? selectedCurrency.symbol : ' $';
   };
 
   // Format price with currency
@@ -483,6 +483,7 @@ doc.setFontSize(12);
                 {items.map((item, index) => (
                   <div key={index} className="item-row">
                     <div>
+                      <h5 className="text-sm text-gray-600 mb-1">Item Name</h5>
                       <input
                         type="text"
                         value={item.name}
@@ -491,30 +492,34 @@ doc.setFontSize(12);
                         required
                       />
                     </div>
+
                     <div>
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.quantity}
-                        onChange={(e) => updateItem(index, 'quantity', e.target.value)}
-                        placeholder="Qty"
-                        required
-                      />
-                    </div>
+                    <h5 className="text-sm text-gray-600 mb-1">Quantity</h5>
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.quantity === 0 ? '' : item.quantity}
+                      onChange={(e) => updateItem(index, 'quantity', Number(e.target.value))}
+                      placeholder="Qty"
+                      required
+                    />
+                  </div>
+
                     <div>
+                      <h5 className="text-sm text-gray-600 mb-1">Unit Price ({getCurrencySymbol()})</h5>
                       <input
                         type="number"
                         min="0"
                         step="0.01"
-                        value={item.price}
-                        onChange={(e) => updateItem(index, 'price', e.target.value)}
+                        value={item.price === 0 ? '' : item.price}
+                        onChange={(e) => updateItem(index, 'price', Number(e.target.value))}
                         placeholder="Price"
                         required
                       />
                     </div>
                     <div className="item-total">
                       <span className="font-medium text-gray-900">
-                        {formatPrice(item.quantity * item.price)}
+                      <h3> {formatPrice(item.quantity * item.price)}</h3>
                       </span>
                       {items.length > 1 && (
                         <button
@@ -575,7 +580,7 @@ doc.setFontSize(12);
                 )}
               </button>
 
-              {lastReceiptId && (
+              {/* {lastReceiptId && (
                 <button
                   type="button"
                   onClick={generatePDF}
@@ -583,7 +588,7 @@ doc.setFontSize(12);
                 >
 
                 </button>
-              )}
+              )} */}
             </div>
           </form>
 

@@ -94,7 +94,7 @@ export const generateIntegrityChecksum = async (receiptData, hash) => {
 
 // Get verification URL - handles localhost for development
 export const getVerificationUrl = (receiptId) => {
-  const baseUrl = window.location.hostname === 'localhost' 
+  const baseUrl = window.location.hostname === 'localhost'
     ? 'https://invoixe-ten.vercel.app/' // Replace with your deployed URL
     : window.location.origin;
   
