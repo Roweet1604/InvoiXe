@@ -212,34 +212,42 @@ const CreateReceipt = () => {
     doc.text('This receipt is cryptographically secured. Verification checks our database,', 20, 62);
     doc.text('not this PDF file. Any changes to this PDF do not affect verification.', 20, 67);
     
-    // Receipt Details Section
-    doc.setFillColor(239, 246, 255); // Light blue background
-    doc.rect(15, 80, pageWidth - 30, 60, 'F');
-    // Add a lock icon for tamper-proof receipts
-    doc.setFontSize(18);
-    doc.setTextColor(34, 197, 94); // Green color
-    doc.text('🔒', pageWidth - 30, 90);
-    // Add receipt hash and integrity checksum to PDF
-    doc.setFontSize(10);
-    doc.setTextColor(55, 65, 81); // Gray-700
-    doc.text(`Hash: ${receiptData?.hash ? receiptData.hash.slice(0, 32) + '...' : '[hash not available]'}`, 20, 150);
-    doc.text(`Integrity Checksum: ${receiptData?.integrityChecksum ? receiptData.integrityChecksum.slice(0, 32) + '...' : '[checksum not available]'}`, 20, 158);
-    doc.setTextColor(0, 0, 0); // Reset color
+    // // Receipt Details Section
+    // doc.setFillColor(239, 246, 255); // Light blue background
+    // doc.rect(15, 80, pageWidth - 30, 60, 'F');
+    // // Add a lock icon for tamper-proof receipts
+    // doc.setFontSize(18);
+    // doc.setTextColor(34, 197, 94); // Green color
+    // doc.text('🔒', pageWidth - 30, 90);
+    // // Add receipt hash and integrity checksum to PDF
+    // doc.setFontSize(10);
+    // doc.setTextColor(55, 65, 81); // Gray-700
+    // doc.text(`Hash: ${receiptData?.hash ? receiptData.hash.slice(0, 32) + '...' : '[hash not available]'}`, 20, 150);
+    // doc.text(`Integrity Checksum: ${receiptData?.integrityChecksum ? receiptData.integrityChecksum.slice(0, 32) + '...' : '[checksum not available]'}`, 20, 158);
+    // doc.setTextColor(0, 0, 0); // Reset color
     // Add a watermark for tamper-proof
+    // Add a watermark for tamper-proof (no angle to avoid rendering bug)
     doc.setFontSize(40);
     doc.setTextColor(220, 220, 220);
-    doc.text('TAMPER-PROOF', pageWidth / 2, 200, { align: 'center', angle: 20 });
-    doc.setTextColor(0, 0, 0); // Reset color
+    doc.text('TAMPER-PROOF', pageWidth / 2, 200, { align: 'center' });
+    doc.setTextColor(0, 0, 0);
+
     doc.setFontSize(16);
     doc.setFont(undefined, 'bold');
     doc.text('RECEIPT DETAILS', 20, 95);
     
     doc.setFontSize(12);
     doc.setFont(undefined, 'normal');
+
+    doc.setTextColor(0, 0, 0);
+doc.setFont("helvetica", "normal");
+doc.setFontSize(12);
+
     doc.text(`Receipt ID: ${idToUse}`, 20, 110);
     doc.text(`Customer: ${dataToUse.customerName}`, 20, 120);
     doc.text(`Date: ${dataToUse.date}`, 20, 130);
-    doc.text(`Currency: ${dataToUse.currency || 'Rs'} (${getCurrencySymbol(dataToUse.currency)})`, 20, 140);
+  const symbol = getCurrencySymbol(dataToUse.currency) || '';
+    doc.text(`Currency: ${dataToUse.currency || 'Rs'} (${symbol})`, 20, 140);
     doc.text(`Security Level: MAXIMUM`, 120, 110);
     doc.text(`Status: TAMPER-PROOF`, 120, 120);
     doc.text(`Generated At: ${new Date().toLocaleTimeString()}`, 120, 130);

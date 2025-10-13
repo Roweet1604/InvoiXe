@@ -36,9 +36,7 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/verify/:id" element={<VerifyReceipt />} />
-        <Route path="/verify" element={<VerifyReceipt />} />
-        
+        <Route path="/verify/:id" element={<VerifyReceipt />} />        
         {/* Authentication Routes */}
         <Route 
           path="/login" 
